@@ -2,7 +2,7 @@
 
 set -e
 
-export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+export PATH=${PATH}:${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
 
 CXX=${ARCH:-aarch64-linux-android29-clang++}
 
