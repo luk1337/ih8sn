@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
 
 aarch64-linux-android29-clang++ \
