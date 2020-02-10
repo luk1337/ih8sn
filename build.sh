@@ -16,10 +16,10 @@ aarch64-linux-android29-clang++ \
     aosp/bionic/libc/system_properties/contexts_serialized.cpp \
     aosp/bionic/libc/system_properties/contexts_split.cpp \
     aosp/bionic/libc/system_properties/prop_area.cpp \
-    aosp/bionic/libc/system_properties/property_info_parser.cpp \
     aosp/bionic/libc/system_properties/prop_info.cpp \
     aosp/bionic/libc/system_properties/system_properties.cpp \
     aosp/system/core/base/strings.cpp \
+    aosp/system/core/property_service/libpropertyinfoparser/property_info_parser.cpp \
     main.cpp \
     -static \
     -std=c++17 \
