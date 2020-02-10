@@ -52,6 +52,9 @@ int main(int argc, char *argv[]) {
     }
 
     const auto config = load_config();
+    const auto build_fingerprint = config.find("BUILD_FINGERPRINT");
+    const auto build_description = config.find("BUILD_DESCRIPTION");
+    const auto build_security_patch_date = config.find("BUILD_SECURITY_PATCH_DATE");
 
     const auto set_ro_product_prop = [](const std::string &source,
             const std::string &prop, const std::string &value) {
@@ -60,13 +63,19 @@ int main(int argc, char *argv[]) {
     };
 
     for (const auto &source : ro_product_props_default_source_order) {
-        set_ro_product_prop(source, "build.fingerprint", config.at("BUILD_FINGERPRINT"));
+        if (build_fingerprint != config.end()) {
+            set_ro_product_prop(source, "build.fingerprint", build_fingerprint->second);
+        }
     }
 
-    property_override("ro.build.description",
-            config.at("BUILD_DESCRIPTION").c_str(), false);
-    property_override("ro.build.version.security_patch",
-            config.at("BUILD_SECURITY_PATCH_DATE").c_str(), false);
+    if (build_description != config.end()) {
+        property_override("ro.build.description", build_description->second.c_str(), false);
+    }
+
+    if (build_description != config.end()) {
+        property_override("ro.build.version.security_patch",
+                build_security_patch_date->second.c_str(), false);
+    }
 
     property_override("ro.boot.flash.locked", "1", false);
     property_override("ro.boot.verifiedbootstate", "green", false);
