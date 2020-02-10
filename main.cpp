@@ -59,7 +59,8 @@ int main(int argc, char *argv[]) {
         set_ro_product_prop(source, "build.fingerprint", config.at("BUILD_FINGERPRINT"));
     }
 
-    property_override("ro.build.description", config.at("BUILD_DESCRIPTION").c_str(), false);
+    property_override("ro.build.description",
+            config.at("BUILD_DESCRIPTION").c_str(), false);
     property_override("ro.build.version.security_patch",
             config.at("BUILD_SECURITY_PATCH_DATE").c_str(), false);
 
