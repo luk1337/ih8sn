@@ -6,9 +6,10 @@
 #include <sys/_system_properties.h>
 
 // copied from build/tools/releasetools/ota_from_target_files.py
-// but with "." at the end and empty entry
+// but with "." at the end, bootimage, and an empty entry
 std::vector<std::string> ro_product_props_default_source_order = {
     "",
+    "bootimage.",
     "product.",
     "product_services.",
     "odm.",
@@ -56,15 +57,11 @@ int main(int argc, char *argv[]) {
     const auto build_description = config.find("BUILD_DESCRIPTION");
     const auto build_security_patch_date = config.find("BUILD_SECURITY_PATCH_DATE");
 
-    const auto set_ro_product_prop = [](const std::string &source,
-            const std::string &prop, const std::string &value) {
-        auto prop_name = "ro.product." + source + prop;
-        property_override(prop_name.c_str(), value.c_str(), false);
-    };
-
     for (const auto &source : ro_product_props_default_source_order) {
         if (build_fingerprint != config.end()) {
-            set_ro_product_prop(source, "build.fingerprint", build_fingerprint->second);
+            const auto build_fingerprint_prop_name = "ro." + source + "build.fingerprint";
+            property_override(build_fingerprint_prop_name.c_str(),
+                    build_fingerprint->second.c_str(), false);
         }
     }
 
