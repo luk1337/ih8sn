@@ -1,15 +1,9 @@
-#include <string>
-#include <vector>
+#include <android-base/strings.h>
+#include <fstream>
+#include <map>
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
-
-constexpr auto BUILD_FINGERPRINT =
-        "OnePlus/OnePlus7Pro_EEA/OnePlus7Pro:10/QKQ1.190716.003/1910071200:user/release-keys";
-constexpr auto BUILD_DESCRIPTION =
-        "OnePlus7Pro-user 10 QKQ1.190716.003 1910071200 release-keys";
-constexpr auto BUILD_SECURITY_PATCH_DATE =
-        "2019-09-05";
 
 // copied from build/tools/releasetools/ota_from_target_files.py
 // but with "." at the end and empty entry
@@ -32,10 +26,28 @@ void property_override(char const prop[], char const value[], bool add = true) {
     }
 }
 
+std::map<std::string, std::string> load_config() {
+    std::map<std::string, std::string> config;
+
+    if (std::ifstream file("/system/etc/ih8sn.conf"); file.good()) {
+        std::string line;
+
+        while (std::getline(file, line)) {
+            if (const auto kv = android::base::Split(line, "="); kv.size() == 2) {
+                config[kv.at(0)] = kv.at(1);
+            }
+        }
+    }
+
+    return config;
+}
+
 int main(int argc, char *argv[]) {
     if (__system_properties_init()) {
         return -1;
     }
+
+    const auto config = load_config();
 
     const auto set_ro_product_prop = [](const std::string &source,
             const std::string &prop, const std::string &value) {
@@ -44,11 +56,12 @@ int main(int argc, char *argv[]) {
     };
 
     for (const auto &source : ro_product_props_default_source_order) {
-        set_ro_product_prop(source, "build.fingerprint", BUILD_FINGERPRINT);
+        set_ro_product_prop(source, "build.fingerprint", config.at("BUILD_FINGERPRINT"));
     }
 
-    property_override("ro.build.description", BUILD_DESCRIPTION, false);
-    property_override("ro.build.version.security_patch", BUILD_SECURITY_PATCH_DATE, false);
+    property_override("ro.build.description", config.at("BUILD_DESCRIPTION").c_str(), false);
+    property_override("ro.build.version.security_patch",
+            config.at("BUILD_SECURITY_PATCH_DATE").c_str(), false);
 
     property_override("ro.boot.flash.locked", "1", false);
     property_override("ro.boot.verifiedbootstate", "green", false);
