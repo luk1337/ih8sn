@@ -4,7 +4,9 @@ set -e
 
 export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
 
-aarch64-linux-android29-clang++ \
+CXX=${ARCH:-aarch64-linux-android29-clang++}
+
+${CXX} \
     -Iaosp/bionic/libc \
     -Iaosp/bionic/libc/async_safe/include \
     -Iaosp/bionic/libc/system_properties/include \
