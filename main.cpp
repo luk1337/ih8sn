@@ -33,6 +33,10 @@ std::map<std::string, std::string> load_config() {
         std::string line;
 
         while (std::getline(file, line)) {
+            if (line[0] == '#') {
+                continue;
+            }
+
             if (const auto kv = android::base::Split(line, "="); kv.size() == 2) {
                 config[kv.at(0)] = kv.at(1);
             }
