@@ -1,4 +1,3 @@
-#include <android-base/strings.h>
 #include <fstream>
 #include <map>
 
@@ -26,8 +25,8 @@ std::map<std::string, std::string> load_config() {
                 continue;
             }
 
-            if (const auto kv = android::base::Split(line, "="); kv.size() == 2) {
-                config[kv.at(0)] = kv.at(1);
+            if (const auto separator = line.find('='); separator != std::string::npos) {
+                config[line.substr(0, separator)] = line.substr(separator + 1);
             }
         }
     }
