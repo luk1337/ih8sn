@@ -38,7 +38,7 @@ static_assert(sizeof(kLongLegacyError) < prop_info::kLongLegacyErrorBufferSize,
 prop_info::prop_info(const char* name, uint32_t namelen, const char* value, uint32_t valuelen) {
   memcpy(this->name, name, namelen);
   this->name[namelen] = '\0';
-  atomic_init(&this->serial, valuelen << 24U);
+  atomic_init(&this->serial, valuelen << 24);
   memcpy(this->value, value, valuelen);
   this->value[valuelen] = '\0';
 }
