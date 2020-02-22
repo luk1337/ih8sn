@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
     const auto build_fingerprint = config.find("BUILD_FINGERPRINT");
     const auto build_description = config.find("BUILD_DESCRIPTION");
     const auto build_security_patch_date = config.find("BUILD_SECURITY_PATCH_DATE");
+    const auto build_tags = config.find("BUILD_TAGS");
     const auto build_type = config.find("BUILD_TYPE");
     const auto build_version_release = config.find("BUILD_VERSION_RELEASE");
 
@@ -56,6 +57,17 @@ int main(int argc, char *argv[]) {
             "ro.vendor.build.fingerprint",
         }) {
             property_override(prop, build_fingerprint->second.c_str());
+        }
+    }
+
+    if (build_tags != config.end()) {
+        for (const auto &prop : {
+            "ro.build.tags",
+            "ro.odm.build.tags",
+            "ro.system.build.tags",
+            "ro.vendor.build.tags",
+        }) {
+            property_override(prop, build_tags->second.c_str());
         }
     }
 
