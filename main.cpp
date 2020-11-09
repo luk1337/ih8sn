@@ -54,6 +54,7 @@ int main(int argc, char *argv[]) {
             "ro.odm.build.fingerprint",
             "ro.product.build.fingerprint",
             "ro.system.build.fingerprint",
+            "ro.system_ext.build.fingerprint",
             "ro.vendor.build.fingerprint",
         }) {
             property_override(prop, build_fingerprint->second.c_str());
@@ -65,6 +66,7 @@ int main(int argc, char *argv[]) {
             "ro.build.tags",
             "ro.odm.build.tags",
             "ro.system.build.tags",
+            "ro.system_ext.build.tags",
             "ro.vendor.build.tags",
         }) {
             property_override(prop, build_tags->second.c_str());
@@ -76,6 +78,7 @@ int main(int argc, char *argv[]) {
             "ro.build.type",
             "ro.odm.build.type",
             "ro.system.build.type",
+            "ro.system_ext.build.type",
             "ro.vendor.build.type",
         }) {
             property_override(prop, build_type->second.c_str());
@@ -87,6 +90,7 @@ int main(int argc, char *argv[]) {
             "ro.build.version.release",
             "ro.product.build.version.release",
             "ro.system.build.version.release",
+            "ro.system_ext.build.version.release",
         }) {
             property_override(prop, build_version_release->second.c_str());
         }
