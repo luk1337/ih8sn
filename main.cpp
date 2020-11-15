@@ -106,6 +106,7 @@ int main(int argc, char *argv[]) {
     }
 
     property_override("ro.boot.flash.locked", "1");
+    property_override("ro.boot.vbmeta.device_state", "locked");
     property_override("ro.boot.verifiedbootstate", "green");
     property_override("ro.boot.veritymode", "enforcing");
     property_override("ro.boot.warranty_bit", "0");
