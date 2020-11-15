@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
         property_override("ro.build.description", build_description->second.c_str());
     }
 
-    if (build_description != config.end()) {
+    if (build_security_patch_date != config.end()) {
         property_override("ro.build.version.security_patch",
                 build_security_patch_date->second.c_str());
     }
