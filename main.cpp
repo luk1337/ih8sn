@@ -65,6 +65,7 @@ int main(int argc __unused, char *argv[] __unused) {
         for (const auto &prop : {
             "ro.build.tags",
             "ro.odm.build.tags",
+            "ro.product.build.tags",
             "ro.system.build.tags",
             "ro.system_ext.build.tags",
             "ro.vendor.build.tags",
@@ -77,6 +78,7 @@ int main(int argc __unused, char *argv[] __unused) {
         for (const auto &prop : {
             "ro.build.type",
             "ro.odm.build.type",
+            "ro.product.build.type",
             "ro.system.build.type",
             "ro.system_ext.build.type",
             "ro.vendor.build.type",
@@ -88,6 +90,7 @@ int main(int argc __unused, char *argv[] __unused) {
     if (build_version_release != config.end()) {
         for (const auto &prop : {
             "ro.build.version.release",
+            "ro.odm.build.version.release",
             "ro.product.build.version.release",
             "ro.system.build.version.release",
             "ro.system_ext.build.version.release",
