@@ -34,7 +34,7 @@ std::map<std::string, std::string> load_config() {
     return config;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc __unused, char *argv[] __unused) {
     if (__system_properties_init()) {
         return -1;
     }
