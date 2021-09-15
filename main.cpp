@@ -95,6 +95,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.product.build.version.release",
             "ro.system.build.version.release",
             "ro.system_ext.build.version.release",
+            "ro.vendor.build.version.release",
         }) {
             property_override(prop, build_version_release->second.c_str());
         }
