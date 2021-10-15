@@ -47,6 +47,7 @@ int main(int argc __unused, char *argv[] __unused) {
     const auto build_type = config.find("BUILD_TYPE");
     const auto build_version_release = config.find("BUILD_VERSION_RELEASE");
     const auto debuggable = config.find("DEBUGGABLE");
+    const auto product_name = config.find("PRODUCT_NAME");
 
     if (build_fingerprint != config.end()) {
         for (const auto &prop : {
@@ -112,6 +113,19 @@ int main(int argc __unused, char *argv[] __unused) {
 
     if (debuggable != config.end()) {
         property_override("ro.debuggable", debuggable->second.c_str());
+    }
+
+    if (product_name != config.end()) {
+        for (const auto &prop : {
+            "ro.product.name",
+            "ro.product.odm.name",
+            "ro.product.product.name",
+            "ro.product.system.name",
+            "ro.product.system_ext.name",
+            "ro.product.vendor.name",
+        }) {
+            property_override(prop, product_name->second.c_str());
+        }
     }
 
     property_override("ro.boot.flash.locked", "1");
