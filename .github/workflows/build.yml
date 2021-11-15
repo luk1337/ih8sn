@@ -15,7 +15,7 @@ jobs:
     - name: Build (AArch64)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r21 CXX=aarch64-linux-android29-clang++ ./build.sh
-        zip -r ih8sn-aarch64.zip ih8sn ih8sn.conf push.sh
+        zip -r ih8sn-aarch64.zip 60-ih8sn.sh ih8sn ih8sn.conf ih8sn.rc push.sh 
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (AArch64)
@@ -23,7 +23,7 @@ jobs:
     - name: Build (ARMv7-A)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r21 CXX=armv7a-linux-androideabi29-clang++ ./build.sh
-        zip -r ih8sn-armv7a.zip ih8sn ih8sn.conf push.sh
+        zip -r ih8sn-armv7a.zip 60-ih8sn.sh ih8sn ih8sn.conf ih8sn.rc push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (ARMv7-A)
@@ -31,7 +31,7 @@ jobs:
     - name: Build (i686)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r21 CXX=i686-linux-android29-clang++ ./build.sh
-        zip -r ih8sn-i686.zip ih8sn ih8sn.conf push.sh
+        zip -r ih8sn-i686.zip 60-ih8sn.sh ih8sn ih8sn.conf ih8sn.rc push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (i686)
@@ -39,7 +39,7 @@ jobs:
     - name: Build (x86_64)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r21 CXX=x86_64-linux-android29-clang++ ./build.sh
-        zip -r ih8sn-x86_64.zip ih8sn ih8sn.conf push.sh
+        zip -r ih8sn-x86_64.zip 60-ih8sn.sh ih8sn ih8sn.conf ih8sn.rc push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (x86_64)
