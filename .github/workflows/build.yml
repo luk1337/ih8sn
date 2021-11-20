@@ -44,3 +44,15 @@ jobs:
       with:
         name: ih8sn (x86_64)
         path: ih8sn-x86_64.zip
+    - uses: marvinpinto/action-automatic-releases@latest
+      if: github.ref == 'refs/heads/master'
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "${{ env.GITHUB_SHA }}"
+        files: |
+          ih8sn-aarch64.zip
+          ih8sn-armv7a.zip
+          ih8sn-i686.zip
+          ih8sn-x86_64.zip
