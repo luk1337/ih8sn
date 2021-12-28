@@ -139,6 +139,7 @@ int main(int argc __unused, char *argv[] __unused) {
     property_override("ro.boot.verifiedbootstate", "green");
     property_override("ro.boot.veritymode", "enforcing");
     property_override("ro.boot.warranty_bit", "0");
+    property_override("ro.is_ever_orange", "0");
     property_override("ro.warranty_bit", "0");
 
     return 0;
