@@ -58,6 +58,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.system.build.fingerprint",
             "ro.system_ext.build.fingerprint",
             "ro.vendor.build.fingerprint",
+            "ro.vendor_dlkm.build.fingerprint",
         }) {
             property_override(prop, build_fingerprint->second.c_str());
         }
@@ -71,6 +72,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.system.build.tags",
             "ro.system_ext.build.tags",
             "ro.vendor.build.tags",
+            "ro.vendor_dlkm.build.tags",
         }) {
             property_override(prop, build_tags->second.c_str());
         }
@@ -84,6 +86,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.system.build.type",
             "ro.system_ext.build.type",
             "ro.vendor.build.type",
+            "ro.vendor_dlkm.build.type",
         }) {
             property_override(prop, build_type->second.c_str());
         }
@@ -103,6 +106,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.system.build.version.release_or_codename",
             "ro.system_ext.build.version.release_or_codename",
             "ro.vendor.build.version.release_or_codename",
+            "ro.vendor_dlkm.build.version.release_or_codename",
         }) {
             property_override(prop, build_version_release->second.c_str());
         }
@@ -129,6 +133,7 @@ int main(int argc __unused, char *argv[] __unused) {
             "ro.product.system.name",
             "ro.product.system_ext.name",
             "ro.product.vendor.name",
+            "ro.product.vendor_dlkm.name",
         }) {
             property_override(prop, product_name->second.c_str());
         }
