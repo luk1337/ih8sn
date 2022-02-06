@@ -12,6 +12,9 @@ adb wait-for-device root
 adb wait-for-device shell "mount | grep -q ^tmpfs\ on\ /system && umount -fl /system/{bin,etc} 2>/dev/null"
 if [[ "${USE_REMOUNT}" = "1" ]]; then
     adb wait-for-device shell "remount"
+elif [[ "$(adb shell stat -f --format %a /system)" = "0" ]]; then
+    echo "ERROR: /system has 0 available blocks, consider using --use_remount"
+    exit -1
 else
     adb wait-for-device shell "stat --format %m /system | xargs mount -o rw,remount"
 fi
