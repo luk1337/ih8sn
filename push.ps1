@@ -1,6 +1,7 @@
 #!/usr/bin/env pwsh
 
 adb wait-for-device root
+adb wait-for-device shell "mount | grep -q ^tmpfs\ on\ /system && umount -fl /system/{bin,etc} 2>/dev/null"
 adb wait-for-device remount
 adb wait-for-device push 60-ih8sn.sh /system/addon.d/
 adb wait-for-device push ih8sn /system/bin/
