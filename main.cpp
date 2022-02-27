@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
         property_override("ro.debuggable", debuggable->second.c_str());
     }
 
-    if (product_name != config.end()) {
+    if (is_init_stage && product_name != config.end()) {
         for (const auto &prop : {
             "ro.product.name",
             "ro.product.odm.name",
