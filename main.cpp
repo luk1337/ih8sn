@@ -66,6 +66,7 @@ int main(int argc __unused, char *argv[] __unused) {
 
     if (build_tags != config.end()) {
         for (const auto &prop : {
+            "ro.bootimage.build.tags",
             "ro.build.tags",
             "ro.odm.build.tags",
             "ro.product.build.tags",
@@ -80,6 +81,7 @@ int main(int argc __unused, char *argv[] __unused) {
 
     if (build_type != config.end()) {
         for (const auto &prop : {
+            "ro.bootimage.build.type",
             "ro.build.type",
             "ro.odm.build.type",
             "ro.product.build.type",
@@ -94,12 +96,14 @@ int main(int argc __unused, char *argv[] __unused) {
 
     if (build_version_release != config.end()) {
         for (const auto &prop : {
+            "ro.bootimage.build.version.release",
             "ro.build.version.release",
             "ro.odm.build.version.release",
             "ro.product.build.version.release",
             "ro.system.build.version.release",
             "ro.system_ext.build.version.release",
             "ro.vendor.build.version.release",
+            "ro.bootimage.build.version.release_or_codename",
             "ro.build.version.release_or_codename",
             "ro.odm.build.version.release_or_codename",
             "ro.product.build.version.release_or_codename",
