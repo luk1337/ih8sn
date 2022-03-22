@@ -2,6 +2,9 @@
 
 while getopts ":-:" o; do
     case "${OPTARG}" in
+        reboot)
+            REBOOT=1
+            ;;
         use_remount)
             USE_REMOUNT=1
             ;;
@@ -31,4 +34,8 @@ elif [[ -f "ih8sn.conf.${PRODUCT}" ]]; then
     adb wait-for-device push ih8sn.conf.${PRODUCT} /system/etc/ih8sn.conf
 else
     adb wait-for-device push ih8sn.conf /system/etc/
+fi
+
+if [[ "${REBOOT}" = "1" ]]; then
+    adb wait-for-device reboot
 fi

@@ -1,6 +1,7 @@
 #!/usr/bin/env pwsh
 
 param(
+    [switch]$reboot = $false,
     [switch]$use_remount = $false
 )
 
@@ -26,4 +27,8 @@ if (Test-Path "ih8sn.conf.${serialno}" -PathType leaf) {
     adb wait-for-device push ih8sn.conf.${product} /system/etc/ih8sn.conf
 } else {
     adb wait-for-device push ih8sn.conf /system/etc/
+}
+
+if ($reboot) {
+    adb wait-for-device reboot
 }
