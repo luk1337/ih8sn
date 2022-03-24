@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
                 build_security_patch_date->second.c_str());
     }
 
-    if (is_init_stage && debuggable != config.end()) {
+    if (is_boot_completed_stage && debuggable != config.end()) {
         property_override("ro.debuggable", debuggable->second.c_str());
     }
 
