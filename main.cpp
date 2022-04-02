@@ -54,6 +54,7 @@ int main(int argc, char *argv[]) {
     const auto build_type = config.find("BUILD_TYPE");
     const auto build_version_release = config.find("BUILD_VERSION_RELEASE");
     const auto debuggable = config.find("DEBUGGABLE");
+    const auto manufacturer_name = config.find("MANUFACTURER_NAME");
     const auto product_name = config.find("PRODUCT_NAME");
 
     if (is_init_stage && build_fingerprint != config.end()) {
@@ -134,6 +135,20 @@ int main(int argc, char *argv[]) {
 
     if (is_init_stage && debuggable != config.end()) {
         property_override("ro.debuggable", debuggable->second.c_str());
+    }
+
+    if (is_init_stage && manufacturer_name != config.end()) {
+        for (const auto &prop : {
+            "ro.product.manufacturer",
+            "ro.product.odm.manufacturer",
+            "ro.product.product.manufacturer",
+            "ro.product.system.manufacturer",
+            "ro.product.system_ext.manufacturer",
+            "ro.product.vendor.manufacturer",
+            "ro.product.vendor_dlkm.manufacturer",
+        }) {
+            property_override(prop, manufacturer_name->second.c_str());
+        }
     }
 
     if (is_init_stage && product_name != config.end()) {
