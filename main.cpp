@@ -81,6 +81,7 @@ int main(int argc, char *argv[]) {
     const auto build_tags = config.find("BUILD_TAGS");
     const auto build_type = config.find("BUILD_TYPE");
     const auto build_version_release = config.find("BUILD_VERSION_RELEASE");
+    const auto build_version_release_or_codename = config.find("BUILD_VERSION_RELEASE_OR_CODENAME");
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
     const auto product_name = config.find("PRODUCT_NAME");
@@ -101,8 +102,11 @@ int main(int argc, char *argv[]) {
     if (is_boot_completed_stage && build_version_release != config.end()) {
         property_override(property_list("ro.", "build.version.release"),
                 build_version_release->second.c_str());
+    }
+
+    if (is_boot_completed_stage && build_version_release_or_codename != config.end()) {
         property_override(property_list("ro.", "build.version.release_or_codename"),
-                build_version_release->second.c_str());
+                build_version_release_or_codename->second.c_str());
     }
 
     if (is_init_stage && build_description != config.end()) {
