@@ -84,6 +84,9 @@ int main(int argc, char *argv[]) {
     const auto build_version_release_or_codename = config.find("BUILD_VERSION_RELEASE_OR_CODENAME");
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
+    const auto override_avb = config.find("OVERRIDE_AVB");
+    const auto override_flash_lock = config.find("OVERRIDE_FLASH_LOCK");
+    const auto override_warranty = config.find("OVERRIDE_WARRANTY");
     const auto product_name = config.find("PRODUCT_NAME");
 
     if (is_init_stage && build_fingerprint != config.end()) {
@@ -131,13 +134,25 @@ int main(int argc, char *argv[]) {
         property_override(property_list("ro.product.", "name"), product_name->second.c_str());
     }
 
-    if (is_boot_completed_stage) {
-        property_override("ro.boot.flash.locked", "1");
-        property_override("ro.boot.vbmeta.device_state", "locked");
-        property_override("ro.boot.verifiedbootstate", "green");
-        property_override("ro.boot.veritymode", "enforcing");
-        property_override("ro.boot.warranty_bit", "0");
-        property_override("ro.warranty_bit", "0");
+    if (is_boot_completed_stage && override_avb != config.end()) {
+        if (strcmp(override_avb->second.c_str(), "1") == 0) {
+                property_override("ro.boot.vbmeta.device_state", "locked");
+                property_override("ro.boot.verifiedbootstate", "green");
+                property_override("ro.boot.veritymode", "enforcing");
+        }
+    }
+
+    if (is_boot_completed_stage && override_flash_lock != config.end()) {
+        if (strcmp(override_flash_lock->second.c_str(), "1") == 0) {
+                property_override("ro.boot.flash.locked", "1");
+        }
+    }
+
+    if (is_boot_completed_stage && override_warranty != config.end()) {
+        if (strcmp(override_warranty->second.c_str(), "1") == 0) {
+                property_override("ro.boot.warranty_bit", "0");
+                property_override("ro.warranty_bit", "0");
+        }
     }
 
     return 0;
