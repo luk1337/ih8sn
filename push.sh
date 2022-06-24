@@ -1,6 +1,6 @@
 #!/bin/bash
 
-list_files="bin/ih8sn etc/ih8sn.conf etc/init/ih8sn.rc"
+list_files="addon.d/60-ih8sn.sh bin/ih8sn etc/ih8sn.conf etc/init/ih8sn.rc"
 
 while getopts ":-:" o; do
     case "${OPTARG}" in
