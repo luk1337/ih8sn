@@ -1,5 +1,7 @@
 #!/bin/bash
 
+list_files="addon.d/60-ih8sn.sh bin/ih8sn etc/ih8sn.conf etc/init/ih8sn.rc"
+
 while getopts ":-:" o; do
     case "${OPTARG}" in
         reboot)
@@ -7,6 +9,9 @@ while getopts ":-:" o; do
             ;;
         use_remount)
             USE_REMOUNT=1
+            ;;
+        remove)
+            REMOVE=1
             ;;
     esac
 done
@@ -21,6 +26,24 @@ elif [[ "$(adb shell stat -f --format %a /system)" = "0" ]]; then
 else
     adb wait-for-device shell "stat --format %m /system | xargs mount -o rw,remount"
 fi
+
+# Remove files if param 'remove' is provided
+if [[ "${REMOVE}" = "1" ]]; then
+    echo "Checking for ih8sn files to remove ..."
+    count_removed=0
+    for FILE in $list_files
+    do
+        # If the file exist, remove it
+        if [[ ! -z $( adb wait-for-device shell ls /system/$FILE 2>/dev/null ) ]]; then
+            echo "Deleting the file /system/$FILE"
+            adb wait-for-device shell rm /system/$FILE
+            count_removed=$(( count_removed + 1 ))
+        fi
+    done
+    echo "Found $count_removed ih8sn files to remove."
+    exit 0
+fi
+
 adb wait-for-device push 60-ih8sn.sh /system/addon.d/
 adb wait-for-device push ih8sn /system/bin/
 adb wait-for-device push ih8sn.rc /system/etc/init/
