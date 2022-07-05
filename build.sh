@@ -2,6 +2,11 @@
 
 set -e
 
+OUT="system/bin"
+if [ ! -d $OUT ]; then
+    mkdir $OUT
+fi
+
 export PATH=${PATH}:${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
 
 CXX=${CXX:-aarch64-linux-android31-clang++}
@@ -25,4 +30,4 @@ ${CXX} \
     main.cpp \
     -static \
     -std=c++17 \
-    -o ih8sn
+    -o $OUT/ih8sn
