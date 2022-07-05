@@ -1,6 +1,6 @@
 cc_binary {
     name: "ih8sn",
-    init_rc: ["ih8sn.rc"],
+    init_rc: ["system/etc/init/ih8sn.rc"],
 
     local_include_dirs: [
         "aosp/bionic/libc",
