@@ -15,7 +15,7 @@ jobs:
     - name: Build (AArch64)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=aarch64-linux-android31-clang++ ./build.sh
-        zip -r ih8sn-aarch64.zip META-INF system/addon.d/60-ih8sn.sh system/bin/ih8sn system/etc/ih8sn.conf system/etc/init/ih8sn.rc push.ps1 push.sh
+        zip -r ih8sn-aarch64.zip META-INF system push.ps1 push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (AArch64)
@@ -23,7 +23,7 @@ jobs:
     - name: Build (ARMv7-A)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=armv7a-linux-androideabi31-clang++ ./build.sh
-        zip -r ih8sn-armv7a.zip META-INF system/addon.d/60-ih8sn.sh system/bin/ih8sn system/etc/ih8sn.conf system/etc/init/ih8sn.rc push.ps1 push.sh
+        zip -r ih8sn-armv7a.zip META-INF system push.ps1 push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (ARMv7-A)
@@ -31,7 +31,7 @@ jobs:
     - name: Build (i686)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=i686-linux-android31-clang++ ./build.sh
-        zip -r ih8sn-i686.zip META-INF system/addon.d/60-ih8sn.sh system/bin/ih8sn system/etc/ih8sn.conf system/etc/init/ih8sn.rc push.ps1 push.sh
+        zip -r ih8sn-i686.zip META-INF system push.ps1 push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (i686)
@@ -39,7 +39,7 @@ jobs:
     - name: Build (x86_64)
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=x86_64-linux-android31-clang++ ./build.sh
-        zip -r ih8sn-x86_64.zip META-INF system/addon.d/60-ih8sn.sh system/bin/ih8sn system/etc/ih8sn.conf system/etc/init/ih8sn.rc push.ps1 push.sh
+        zip -r ih8sn-x86_64.zip META-INF system push.ps1 push.sh
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (x86_64)
