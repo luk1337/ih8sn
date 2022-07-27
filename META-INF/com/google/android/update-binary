@@ -120,8 +120,23 @@ if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
   fi
 fi
 
+# Set ih8sn config
+SERIALNO=$(getprop ro.boot.serialno)
+PRODUCT=$(getprop ro.build.product)
+DEFAULT_CONFIG=system/etc/ih8sn.conf
+if [[ `unzip -l $ZIP | grep ih8sn.conf.$SERIALNO$` ]] && [[ ! -z "$SERIALNO" ]]; then
+  CONFIG=$DEFAULT_CONFIG.$SERIALNO
+elif [[ `unzip -l $ZIP | grep ih8sn.conf.$PRODUCT$` ]] && [[ ! -z "$PRODUCT" ]]; then
+  CONFIG=$DEFAULT_CONFIG.$PRODUCT
+else
+  CONFIG=$DEFAULT_CONFIG
+fi
+
 ui_print "Copying files"
-unzip -qq "$ZIP" system/etc/init/ih8sn.rc system/etc/ih8sn.conf system/addon.d/60-ih8sn.sh system/bin/ih8sn -d "${SYSTEM_MNT}/"
+unzip -qq "$ZIP" system/etc/init/ih8sn.rc system/addon.d/60-ih8sn.sh system/bin/ih8sn -d "${SYSTEM_MNT}/"
+
+ui_print "Using ih8sn config: $CONFIG"
+unzip -qqp "$ZIP" $CONFIG > "${SYSTEM_MNT}/$DEFAULT_CONFIG"
 
 unmount_partition
 
