@@ -108,6 +108,14 @@ else
 error_mounting "$SYSTEM_MNT"
 fi
 
+if [[ `ls ${SYSTEM_MNT}/system/bin/ih8sn 2> /dev/null` ]]; then
+  ui_print "Removing existing ih8sn files"
+  find ${SYSTEM_MNT}/system -name *ih8sn* -delete
+  unmount_partition
+  ui_print "Done!"
+  exit 0
+fi
+
 # Compute storage requirements
 SYSTEM_STORAGE=`df $SYSTEM_MNT | tail -1 | tr -s ' ' | cut -d ' ' -f4`
 STORAGE_BUFFER=10240

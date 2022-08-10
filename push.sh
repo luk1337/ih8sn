@@ -21,6 +21,13 @@ elif [[ "$(adb shell stat -f --format %a /system)" = "0" ]]; then
 else
     adb wait-for-device shell "stat --format %m /system | xargs mount -o rw,remount"
 fi
+
+if [[ `adb shell ls /system/bin/ih8sn 2> /dev/null` ]]; then
+    echo "Removing existing ih8sn files"
+    adb wait-for-device shell "find /system -name *ih8sn* -delete"
+    exit 0
+fi
+
 adb wait-for-device push system/addon.d/60-ih8sn.sh /system/addon.d/
 adb wait-for-device push system/bin/ih8sn /system/bin/
 adb wait-for-device push system/etc/init/ih8sn.rc /system/etc/init/

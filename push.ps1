@@ -14,6 +14,13 @@ if ($use_remount) {
 } else {
     adb wait-for-device shell "stat --format %m /system | xargs mount -o rw,remount"
 }
+
+if ((adb shell 'ls /system/bin/ih8sn 2> /dev/null') -eq "/system/bin/ih8sn") {
+    echo "Removing existing ih8sn files"
+    adb wait-for-device shell "find /system -name *ih8sn* -delete"
+    exit
+}
+
 adb wait-for-device push system/addon.d/60-ih8sn.sh /system/addon.d/
 adb wait-for-device push system/bin/ih8sn /system/bin/
 adb wait-for-device push system/etc/init/ih8sn.rc /system/etc/init/
