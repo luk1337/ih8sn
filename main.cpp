@@ -131,6 +131,10 @@ int main(int argc, char *argv[]) {
         property_override(property_list("ro.product.", "name"), product_name->second.c_str());
     }
 
+    if (is_init_stage && product_name != config.end() && build_type != config.end()) {
+        property_override("ro.build.flavor", (product_name->second + "-" + build_type->second).c_str());
+    }
+
     if (is_boot_completed_stage) {
         property_override("ro.boot.flash.locked", "1");
         property_override("ro.boot.vbmeta.device_state", "locked");
