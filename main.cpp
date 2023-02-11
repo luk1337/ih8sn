@@ -84,6 +84,7 @@ int main(int argc, char *argv[]) {
     const auto build_version_release_or_codename = config.find("BUILD_VERSION_RELEASE_OR_CODENAME");
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
+    const auto product_model = config.find("PRODUCT_MODEL");
     const auto product_name = config.find("PRODUCT_NAME");
 
     if (is_init_stage && build_fingerprint != config.end()) {
@@ -125,6 +126,10 @@ int main(int argc, char *argv[]) {
     if (is_init_stage && manufacturer_name != config.end()) {
         property_override(property_list("ro.product.", "manufacturer"),
                 manufacturer_name->second.c_str());
+    }
+
+    if (is_init_stage && product_model != config.end()) {
+        property_override(property_list("ro.product.", "model"), product_model->second.c_str());
     }
 
     if (is_init_stage && product_name != config.end()) {
