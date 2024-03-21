@@ -5,6 +5,7 @@ cc_binary {
     local_include_dirs: [
         "aosp/bionic/libc",
         "aosp/bionic/libc/async_safe/include",
+        "aosp/bionic/libc/include",
         "aosp/bionic/libc/system_properties/include",
         "aosp/system/core/base/include",
         "aosp/system/core/property_service/libpropertyinfoparser/include",
