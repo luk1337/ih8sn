@@ -16,7 +16,7 @@ jobs:
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=aarch64-linux-android31-clang++ ./build.sh
         zip -r ih8sn-aarch64.zip META-INF system push.ps1 push.sh
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       with:
         name: ih8sn (AArch64)
         path: ih8sn-aarch64.zip
@@ -24,7 +24,7 @@ jobs:
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=armv7a-linux-androideabi31-clang++ ./build.sh
         zip -r ih8sn-armv7a.zip META-INF system push.ps1 push.sh
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       with:
         name: ih8sn (ARMv7-A)
         path: ih8sn-armv7a.zip
@@ -32,7 +32,7 @@ jobs:
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=i686-linux-android31-clang++ ./build.sh
         zip -r ih8sn-i686.zip META-INF system push.ps1 push.sh
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       with:
         name: ih8sn (i686)
         path: ih8sn-i686.zip
@@ -40,7 +40,7 @@ jobs:
       run: |
         ANDROID_NDK_HOME=./android-ndk-r23b CXX=x86_64-linux-android31-clang++ ./build.sh
         zip -r ih8sn-x86_64.zip META-INF system push.ps1 push.sh
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v4
       with:
         name: ih8sn (x86_64)
         path: ih8sn-x86_64.zip
