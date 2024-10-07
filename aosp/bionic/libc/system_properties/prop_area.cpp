@@ -368,6 +368,49 @@ bool prop_area::add(const char* name, unsigned int namelen, const char* value,
   return find_property(root_node(), name, namelen, value, valuelen, true);
 }
 
+bool prop_area::del(const char* name) {
+  prop_bt* const trie = root_node();
+  if (!trie) return false;
+
+  const char* remaining_name = name;
+  prop_bt* current = trie;
+  while (true) {
+    const char* sep = strchr(remaining_name, '.');
+    const bool want_subtree = (sep != nullptr);
+    const uint32_t substr_size = (want_subtree) ? sep - remaining_name : strlen(remaining_name);
+
+    if (!substr_size) {
+      return false;
+    }
+
+    prop_bt* root = nullptr;
+    uint_least32_t children_offset = atomic_load_explicit(&current->children, memory_order_relaxed);
+    if (children_offset != 0) {
+      root = to_prop_bt(&current->children);
+    }
+
+    if (!root) {
+      return false;
+    }
+
+    current = find_prop_bt(root, remaining_name, substr_size, false);
+    if (!current) {
+      return false;
+    }
+
+    if (!want_subtree) break;
+
+    remaining_name = sep + 1;
+  }
+
+  uint_least32_t prop_offset = atomic_load_explicit(&current->prop, memory_order_relaxed);
+  if (prop_offset != 0) {
+    uint_least32_t new_offset = 0;
+    atomic_store_explicit(&current->prop, new_offset, memory_order_release);
+  }
+  return true;
+}
+
 bool prop_area::foreach (void (*propfn)(const prop_info* pi, void* cookie), void* cookie) {
   return foreach_property(root_node(), propfn, cookie);
 }
