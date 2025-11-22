@@ -122,10 +122,13 @@ fi
 
 # Set ih8sn config
 SERIALNO=$(getprop ro.boot.serialno)
+MODEL=$(getprop ro.product.model)
 PRODUCT=$(getprop ro.build.product)
 DEFAULT_CONFIG=system/etc/ih8sn.conf
 if [[ `unzip -l $ZIP | grep ih8sn.conf.$SERIALNO$` ]] && [[ ! -z "$SERIALNO" ]]; then
   CONFIG=$DEFAULT_CONFIG.$SERIALNO
+elif [[ `unzip -l $ZIP | grep ih8sn.conf.$MODEL$` ]] && [[ ! -z "$MODEL" ]]; then
+  CONFIG=$DEFAULT_CONFIG.$MODEL
 elif [[ `unzip -l $ZIP | grep ih8sn.conf.$PRODUCT$` ]] && [[ ! -z "$PRODUCT" ]]; then
   CONFIG=$DEFAULT_CONFIG.$PRODUCT
 else
